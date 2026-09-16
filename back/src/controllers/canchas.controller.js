@@ -1,7 +1,5 @@
-const sql = require("mssql");
 const { getConnection } = require("../config/db");
 
-// GET /api/canchas
 const obtenerCanchas = async (req, res) => {
     try {
         const pool = await getConnection();
@@ -10,7 +8,13 @@ const obtenerCanchas = async (req, res) => {
             .request()
             .execute("usp_ListarCanchas");
 
-        res.status(200).json(result.recordset);
+        const canchas = result.recordset.map(cancha => ({
+            idCancha: cancha.idcancha,
+            nombre: cancha.nombre,
+            precioPorHora: cancha.precioporhora
+        }));
+
+        res.status(200).json(canchas);
 
     } catch (error) {
         console.error("Error al obtener canchas:", error);
@@ -23,6 +27,5 @@ const obtenerCanchas = async (req, res) => {
 };
 
 module.exports = {
-    obtenerCanchas,
-
+    obtenerCanchas
 };
