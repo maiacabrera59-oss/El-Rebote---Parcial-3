@@ -5,6 +5,7 @@ const cors = require('cors');
 
 
 const canchasRoutes = require('./routes/canchas.routes');
+const reservasRoutes = require('./routes/reservas.routes');
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.static('public'));
 
 
 app.use('/api/canchas', canchasRoutes);
+app.use('/api/reservas', reservasRoutes);
 
 app.get('/', (req, res) => {
   res.send('API funcionando');
