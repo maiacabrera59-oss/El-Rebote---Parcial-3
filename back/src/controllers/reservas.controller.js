@@ -22,27 +22,6 @@ const listarReservas = async (req, res) => {
     }
 };
 
-// GET /api/reservas/recaudacion
-const listarRecaudacionPorCancha = async (req, res) => {
-    try {
-        const pool = await getConnection();
-
-        const result = await pool
-            .request()
-            .execute("dbo.usp_RecaudacionPorCancha");
-
-        return res.status(200).json(result.recordset);
-
-    } catch (error) {
-        console.error("Error al obtener recaudación por cancha:", error);
-
-        return res.status(500).json({
-            mensaje: "Error interno al consultar la recaudación.",
-            error: error.message
-        });
-    }
-};
-
 // POST /api/reservas
 const crearReserva = async (req, res) => {
     try {
@@ -154,7 +133,6 @@ const registrarPago = async (req, res) => {
 
 module.exports = {
     listarReservas,
-    listarRecaudacionPorCancha,
     crearReserva,
     registrarPago
 };
